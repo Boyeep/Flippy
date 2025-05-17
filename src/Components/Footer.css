@@ -1,41 +1,39 @@
 .footer {
-  background-color: #b7c0fa; /* Warna latar belakang */
+  background-color: #b7c0fa;
   height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
   padding: 1rem;
 }
 
 .footer-content {
   text-align: center;
-  margin-left: 3rem;
-  margin-top: 1rem;
 }
 
 .social-icons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
   margin-bottom: 1rem;
 }
 
 .social-icons a {
-  color: #ffffff; /* Warna ikon */
+  color: #ffffff;
   font-size: 1.5rem;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .social-icons a:hover {
-  color: #3f51b5; /* Warna hover */
+  color: #3f51b5;
 }
 
 .copyright {
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
   font-weight: 500;
-  color: #ffffff; /* Warna teks */
+  color: #ffffff;
   margin: 0;
 }

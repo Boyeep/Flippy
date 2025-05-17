@@ -25,7 +25,7 @@ button {
 
 /* Navbar */
 .navbar {
-  position: fixed; /* Ensures the navbar stays at the top */
+  position: fixed; /* Navbar diatas */
   top: 0;
   left: 0;
   width: 100%;
@@ -88,78 +88,41 @@ html {
 
 @media (max-width: 768px) {
   .auth-buttons {
-    display: flex; /* Ensure buttons are visible */
-    flex-direction: column; /* Stack buttons vertically */
-    gap: 0.5rem; /* Add spacing between buttons */
-    position: absolute; /* Position them properly */
-    top: 100%; /* Place them below the navbar */
-    right: 5%; /* Align them to the right */
-    background: white; /* Add a background for better visibility */
-    padding: 1rem; /* Add padding for spacing */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a shadow for better design */
-    border-radius: 8px; /* Add rounded corners */
-  }
-
-  .nav-links {
-    flex-direction: row; /* Keep links in a row */
-    gap: 1rem; /* Adjust spacing between links */
-  }
-
-  .auth-buttons {
-    flex-direction: row; /* Keep buttons in a row */
-    gap: 0.5rem;
-  }
-}
-
-/* Hamburger Menu */
-.hamburger-menu {
-  display: none; /* Hidden by default */
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-  .hamburger-menu {
-    display: block; /* Show hamburger menu on mobile */
-  }
-
-  .nav-links {
-    display: none; /* Hide links by default */
+    display: flex;
     flex-direction: column;
-    gap: 1rem;
-    background: white;
+    gap: 0.5rem;
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 100%;
+    right: 5%;
+    background: white;
     padding: 1rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
   }
 
-  .nav-links.open {
-    display: flex; /* Show links when menu is open */
+  .nav-links {
+    flex-direction: row;
+    gap: 1rem;
   }
 
   .auth-buttons {
-    display: none; /* Hide auth buttons on mobile */
+    flex-direction: row;
+    gap: 0.5rem;
   }
 }
 
 /* Hero Section */
 .hero {
   position: relative;
-  height: 100vh; /* Full screen height */
-  padding: 0 5%; /* Adjust horizontal padding */
-  background: url('/public/images/Hero.jpg') no-repeat center center; /* Background image */
-  background-size: cover; /* Ensure the image covers the entire section */
-  display: flex; /* Use flexbox to center content */
-  align-items: center; /* Center content vertically */
-  justify-content: center; /* Center content horizontally */
+  height: 100vh;
+  padding: 0 5%;
+  background: url('/public/images/Hero.jpg') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  color: #ff9800; /* Ensure text is visible on the background */
+  color: #ff9800;
 }
 
 .hero::before {
@@ -168,16 +131,16 @@ html {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* Overlay spans the full height */
+  height: 100%;
   z-index: 1;
 }
 
 .hero-content {
   position: relative;
-  z-index: 2; /* Ensure content is above the overlay */
+  z-index: 2;
   max-width: 800px;
   margin: 0 auto;
-  margin-top: -57.5 px; /* Move the text upward */
+  margin-top: -57.5;
 }
 
 .hero h1 {
@@ -189,90 +152,62 @@ html {
 
 .hero .logo {
   font-size: 1.5rem;
-  color: #ff9800; /* Warna oranye */
+  color: #ff9800;
   font-weight: bold;
 }
 
 .hero .highlight {
-  color: #ff9800; /* Warna oranye */
+  color: #ff9800;
   font-style: italic;
 }
 
 .hero-button {
-  position: relative; /* For layering */
-  background-color: #3f51b5; /* Main blue color */
-  color: white; /* White text */
+  position: relative;
+  background-color: #3f51b5;
+  color: white;
   border: none;
-  border-radius: 8px; /* Rounded corners */
-  font-size: 16px; /* Smaller font size */
-  font-family: 'Poppins', sans-serif; /* Font as per design */
-  width: 100px; /* Button width */
-  height: 40px; /* Button height */
-  display: flex; /* Use flexbox for alignment */
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
-  cursor: pointer; /* Change cursor to pointer */
-  box-shadow: 0 4px 0 #2c3a8b; /* Darker layer below */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition effects */
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #2c3a8b;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   margin-left: 16.5rem;
   margin-top: 2rem;
 }
 
 .hero-button:hover {
-  background: #2c3a8b; /* Darker blue on hover */
+  background: #2c3a8b;
+  transform: translateY(-2px); /* Tombol naik sedikit saat hover */
 }
 
 .hero-button:active {
-  transform: translateY(2px); /* Button moves down slightly when clicked */
-  box-shadow: 0 2px 0 #1f2a6d; /* Darker shadow when active */
-}
-
-
-/* Media Query for Mobile Devices */
-@media (max-width: 768px) {
-  .hero {
-    padding: 4rem 2%; /* Reduce padding for smaller screens */
-    text-align: center; /* Center-align text */
-    background-size: cover; /* Ensure the background image scales properly */
-  }
-
-  .hero h1 {
-    font-size: 2rem; /* Reduce font size */
-    line-height: 1.3; /* Adjust line height */
-  }
-
-  .hero h2 {
-    font-size: 1.5rem; /* Adjust subtitle size */
-    margin-bottom: 1rem;
-  }
-
-  .hero p {
-    font-size: 1rem; /* Adjust paragraph size */
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-button {
-    font-size: 0.9rem; /* Reduce button font size */
-    padding: 0.6rem 1.5rem; /* Adjust button padding */
-  }
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1f2a6d;
 }
 
 /* Popular Courses Section */
 .popular-courses {
   padding: 4rem 5%;
-  height: 75vh;
+  height: 70vh;
   text-align: center;
-  margin-top: 10rem;
+  margin-top: 9rem;
+  
 }
 
 .popular-courses h2 {
   font-size: 2rem;
-  color: #3f51b5; /* Warna biru tua */
+  color: #3f51b5;
   margin-bottom: 1rem;
 }
 
 .popular-courses .highlight-text {
-  color: #ff9800; /* Warna oranye */
+  color: #ff9800;
 }
 
 .popular-courses-subtitle {
@@ -297,22 +232,22 @@ html {
 }
 
 .courses-scroll-container {
-  display: flex; /* Gunakan flexbox untuk tata letak horizontal */
-  gap: 1.5rem; /* Tambahkan jarak antar kartu */
-  overflow-x: auto; /* Aktifkan scroll horizontal */
-  scroll-behavior: smooth; /* Scroll yang halus */
-  padding: 1rem 3rem ; /* Tambahkan padding kiri dan kanan untuk jarak dari tombol */
-  max-width: 75%; /* Pastikan container tidak melebihi lebar layar */
-  align-items: flex-start; /* Rata atas untuk kartu */
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1rem 3rem ;
+  max-width: 75%;
+  align-items: flex-start;
   width: max-content;
 }
 
 .courses-scroll-container::-webkit-scrollbar {
-  display: none; /* Sembunyikan scrollbar default */
+  display: none;
 }
 
 .course-card {
-  flex: 0 0 250px; /* Setiap kartu memiliki lebar tetap */
+  flex: 0 0 250px;
   background: white;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -339,11 +274,11 @@ html {
 .scroll-button img {
   width: 40px;
   height: 40px;
-  transition: transform 0.3s ease; /* Efek hover */
+  transition: transform 0.3s ease;
 }
 
 .scroll-button:hover img {
-  transform: scale(1.2); /* Perbesar tombol saat di-hover */
+  transform: scale(1.2);
 }
 
 .scroll-button.left {
@@ -362,7 +297,7 @@ html {
 
 .course-card h3 {
   font-size: 1.2rem;
-  color: #ff9800; /* Warna kuning */
+  color: #ff9800;
   margin-bottom: 0.5rem;
 }
 
@@ -424,14 +359,14 @@ html {
 
 .about-us-image {
   flex: 1;
-  max-width: 400px; /* Kurangi ukuran maksimum gambar */
+  max-width: 400px;
 }
 
 .about-us-image img {
   width: 80%;
   height: auto;
   border-radius: 8px;
-  border: none; /* Warna biru */
+  border: none;
 }
 
 .about-us-content {
@@ -440,24 +375,24 @@ html {
 }
 
 .about-us-content h2 {
-  font-size: 2rem; /* Ukuran lebih kecil */
+  font-size: 2rem;
   margin-bottom: 1rem;
 }
 
 .about-highlight {
-  color: #ff9800; /* Warna oranye */
+  color: #ff9800;
   font-weight: bold;
 }
 
 .about-us-text {
-  color: #3f51b5; /* Warna biru tua */
+  color: #3f51b5;
   font-weight: bold;
 }
 
 .about-us-content h3 {
-  font-size: 1.1rem; /* Ukuran lebih kecil */
-  color: #3f51b5; /* Warna biru */
-  font-weight: normal; /* Tidak bold */
+  font-size: 1.1rem;
+  color: #3f51b5;
+  font-weight: normal;
   margin-bottom: 1rem;
 }
 
@@ -469,16 +404,16 @@ html {
 }
 
 #about-us {
-  scroll-margin-top: 80px; /* Sesuaikan dengan tinggi navbar */
+  scroll-margin-top: 80px;
 }
 
 .about-us-image img {
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efek transisi */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .about-us-image img:hover {
-  transform: scale(1.1); /* Perbesar gambar */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Why Choose Us Section */
@@ -486,19 +421,19 @@ html {
 .why-choose-us {
   padding: 12rem 5%;
   height: 44vh;
-  background: #e6e9fc; /* Warna latar belakang biru muda */
+  background: #e6e9fc;
   text-align: center;
-  border-radius: 8px; /* Membuat sudut melengkung */
-  margin-top: -75px; /* Move the text upward */
+  border-radius: 8px;
+  margin-top: -75px;
 }
 
 .highlight-us {
-  color: #3f51b5; /* Warna biru tua */
+  color: #3f51b5;
 }
 
 .why-choose-us h2 {
   font-size: 2rem;
-  color: #ff7a00; /* Warna teks oranye */
+  color: #ff7a00;
   margin-bottom: 2rem;
 }
 
@@ -522,20 +457,20 @@ html {
   border-radius: 8px;
   padding: 1.5rem;
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan */
-  flex: 1 1 200px; /* Responsif dengan lebar minimum */
-  max-width: 250px; /* Batas lebar maksimum */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex: 1 1 200px;
+  max-width: 250px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .feature:hover {
-  transform: scale(1.05); /* Perbesar sedikit saat hover */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .feature h3 {
   font-size: 1.2rem;
-  color: #4a6bff; /* Warna teks biru */
+  color: #4a6bff;
   margin-bottom: 1rem;
 }
 
@@ -548,26 +483,27 @@ html {
 .feature-icon {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #4a6bff; /* Warna ikon */
+  color: #4a6bff;
 }
 
 /* All Courses Section */
 
 .all-courses {
   padding: 4rem 5%;
-   height: 84vh;
+  height: 84vh;
   margin-top: -4rem;
   text-align: center;
 }
 
 .all-courses h2 {
   font-size: 2rem;
-  color: #ff9800; /* Warna oranye */
+  color: #ff9800;
   margin-bottom: 1rem;
 }
 
+
 .all-courses .highlight {
-  color: #3f51b5; /* Warna biru tua */
+  color: #3f51b5;
 }
 
 .search-bar {
@@ -581,59 +517,59 @@ html {
 .search-container {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc; /* Border abu-abu */
-  border-radius: 25px; /* Membuat sudut melengkung penuh */
-  overflow: hidden; /* Agar elemen di dalamnya tidak keluar */
-  background: white; /* Latar belakang putih */
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  overflow: hidden;
+  background: white;
 }
 
 .search-container:hover {
-  box-shadow: 0 2px 5px rgba(74, 107, 255, 0.2); /* Bayangan lebih halus */
+  box-shadow: 0 2px 5px rgba(74, 107, 255, 0.2);
 }
 
 .search-input {
   border: none;
   border-radius: 5px;
   width: 250px;
-  outline: none; /* Hilangkan outline saat fokus */
+  outline: none;
   padding: 0.5rem 1rem;
-  padding-left: 40px; /* Tambahkan ruang untuk gambar */
-  flex: 1; /* Agar input memenuhi ruang yang tersedia */
+  padding-left: 40px;
+  flex: 1;
   font-size: 1rem;
 }
 
 .search-button {
-  background: #4a6bff; /* Warna biru */
+  background: #4a6bff;
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0; /* Pastikan tidak ada sudut melengkung tambahan */
+  border-radius: 0;
 }
 
 .search-button img {
-  width: 20px; /* Ukuran gambar */
+  width: 20px;
   height: 20px;
 }
 
 .search-button:hover {
-  background: #3a5edb; /* Warna biru lebih gelap saat hover */
+  background: #3a5edb;
 }
 
 /* Custom Dropdown */
 
 .custom-dropdown {
   position: relative;
-  width: 150px; /* Lebar dropdown lebih kecil */
+  width: 150px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 0.9rem; /* Ukuran font lebih kecil */
+  font-size: 0.9rem;
 }
 
 /* Dropdown Header */
 .dropdown-header {
-  padding: 0.6rem 0.8rem; /* Padding lebih kecil */
+  padding: 0.6rem 0.8rem;
   border: 1px solid #ccc;
   border-radius: 5px;
   background: white;
@@ -745,8 +681,8 @@ html {
 }
 
 .filter-dropdown option:hover {
-  background: #4a6bff; /* Warna biru */
-  color: white; /* Ubah warna teks */
+  background: #4a6bff;
+  color: white;
 }
 
 .courses-list {
@@ -771,17 +707,22 @@ html {
   padding: 1rem;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.course-item:hover {
-  transform: scale(1.05); /* Perbesar sedikit saat hover */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+  width: 300px;
+  height: 420px;
+  margin: 0 auto;
 }
 
 .course-item img {
-  max-width: 100%;
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.course-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .course-item h3 {
@@ -793,17 +734,20 @@ html {
 .course-item p {
   font-size: 0.9rem;
   color: #666;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: -0.3rem;
 }
 
 .course-button {
   background: #ff9800;
   color: white;
+  font-size: bold;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease;
+  box-shadow: 0 4px 0 #c57600;
 }
 .course-button:hover {
   background: #e68a00;
@@ -849,42 +793,56 @@ html {
 
 /* Hovering Create Flash Card */
 .floating-image {
-  position: fixed; /* Tetap di posisi yang sama saat di-scroll */
-  bottom: 2rem; /* Jarak dari bawah */
-  right: 2rem; /* Jarak dari kanan */
-  width: 70px; /* Sesuaikan ukuran gambar */
-  height: auto;
-  z-index: 1000; /* Pastikan berada di atas elemen lainnya */
-  cursor: pointer; /* Opsional: Ubah kursor menjadi pointer */
-  transition: transform 0.3s ease; /* Efek hover */
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  z-index: 9999;
+  cursor: pointer;
+  background-color: orange;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.floating-image img {
+  width: 75px;
+  height: 75px;
+  pointer-events: none;
+  z-index: 9999;
 }
 
 .floating-image:hover {
-  transform: scale(1.1); /* Perbesar gambar saat di-hover */
+  transform: scale(1.1);
 }
 
 /* Tombol Sign Up */
 .auth-buttons .signup {
-  position: relative; /* Untuk membuat layer kedua */
-  background-color: #3f51b5; /* Warna biru utama */
-  color: white; /* Warna teks putih */
-  border: none;
-  border-radius: 8px; /* Sudut melengkung */
-  font-size: 14px; /* Ukuran font lebih kecil */
-  font-family: 'Poppins', sans-serif; /* Font sesuai desain */
-  width: 90px; /* Lebar tombol */
-  height: 30px; /* Tinggi tombol lebih kecil */
-  line-height: 17px; /* Tinggi baris agar teks rata tengah */
-  text-align: center; /* Teks rata tengah */
-  cursor: pointer; /* Ubah kursor menjadi pointer */
-  box-shadow: 0 4px 0 #2c3a8b; /* Layer warna lebih tua di bawah */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Efek transisi */
+  position: relative;
+  background-color: #3f51b5;
+  color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  width: 90px;
+  height: 30px;
+  line-height: 17px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #2c3a8b;
+  transition: background-color 0.3s ease, transform 0.4s ease;
 }
 
 .auth-buttons .signup:hover {
-  background-color: #2c3a8b; /* Warna biru lebih gelap saat hover */
+  background-color: #2c3a8b;
   transform: translateY(-2px); /* Tombol naik sedikit saat hover */
-  box-shadow: 0 6px 0 #1f2a6d; /* Layer warna lebih tua saat hover */
+  box-shadow: 0 6px 0 #1f2a6d;
 }
 
 .auth-buttons .login {
@@ -893,5 +851,5 @@ html {
 
 .auth-buttons .signup:active {
   transform: translateY(2px); /* Tombol turun sedikit saat ditekan */
-  box-shadow: 0 2px 0 #1f2a6d; /* Layer warna lebih tua saat ditekan */
+  box-shadow: 0 2px 0 #1f2a6d;
 }

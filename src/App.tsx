@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"; // Gunakan Link untuk navigasi
 import Hero from "./Components/Hero";
 import AboutUs from "./Components/AboutUs";
 import WhyChooseUs from "./Components/WhyChooseUs";
@@ -11,15 +11,17 @@ import LoginPage from "./LoginPage"; // Halaman Login
 import ForgotPasswordPage from "./ForgotPasswordPage"; // Halaman Forgot Password
 import CreateNewPasswordPage from "./CreateNewPasswordPage"; // Halaman Create New Password
 import Footer from "./Components/Footer";
+import CreateFlashcardPage from "./CreateFlashcardPage";
 import "./App.css";
+import './MobileApp.css';
 
 const App: React.FC = () => {
-  const [menuOpen, setMenuOpen] = useState(false); // State for toggling menu
+  const [menuOpen, setMenuOpen] = useState(false); // State untuk toggle menu
   const aboutUsRef = useRef<HTMLDivElement>(null); // Referensi untuk bagian "About Us"
   const footerRef = useRef<HTMLDivElement>(null); // Referensi untuk bagian Footer
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setMenuOpen(!menuOpen); // Toggle menu
   };
 
   const scrollToTop = () => {
@@ -38,8 +40,6 @@ const App: React.FC = () => {
     }
   };
 
-    const isCoursesPage = location.pathname === "/courses"; // Cek apakah di halaman CoursesPage
-
   return (
     <Router>
       <div>
@@ -47,15 +47,18 @@ const App: React.FC = () => {
         <header className="header">
           <nav className="navbar">
             <div className="logo">Flippy</div>
+            {/* Tombol Hamburger Menu */}
             <button className="hamburger-menu" onClick={toggleMenu}>
               ☰
             </button>
+            {/* Navigasi */}
             <div className={`nav-links ${menuOpen ? "open" : ""}`}>
               <Link to="/" onClick={() => { setMenuOpen(false); scrollToTop(); }}>Home</Link>
               <Link to="/" onClick={() => { setMenuOpen(false); scrollToAboutUs(); }}>About Us</Link>
               <Link to="/courses" onClick={() => setMenuOpen(false)}>Courses</Link>
               <Link to="/" onClick={() => { setMenuOpen(false); scrollToFooter(); }}>Contact</Link>
             </div>
+            {/* Tombol Login dan Sign Up */}
             <div className="auth-buttons">
               <Link to="/login">
                 <button className="login">Login</button>
@@ -97,7 +100,15 @@ const App: React.FC = () => {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           {/* Halaman Create New Password */}
           <Route path="/create-new-password" element={<CreateNewPasswordPage />} />
+          <Route path="/create-flashcard" element={<CreateFlashcardPage />} />
         </Routes>
+        {/* Gambar di kanan bawah */}
+        <Link to="/create-flashcard" className="floating-image">
+          <img
+            src="/Images/CreateFlashCard-Hovering.jpg"
+            alt="Create Flash Card"
+          />
+        </Link>
       </div>
     </Router>
   );

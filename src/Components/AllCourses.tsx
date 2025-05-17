@@ -27,9 +27,9 @@ const AllCourses = () => {
   }, []);
 
   const courses = [
-    { title: "Aljabar Linear", author: "Nur", image: "/Images/Aljabar.jpg" },
-    { title: "Kalkulus", author: "Pak Matdas Mku B Semester 2 Pekan Pertama", image: "/Images/Aljabar.jpg" },
-    { title: "Fisika Dasar", author: "Zaenab", image: "/Images/Aljabar.jpg" },
+    { title: "Aljabar Linear", author: "James", image: "/Images/Aljabar.jpg" },
+    { title: "Kalkulus", author: "Daniel", image: "/Images/Aljabar.jpg" },
+    { title: "Fisika Dasar", author: "Michael", image: "/Images/Aljabar.jpg" },
   ];
 
   const toggleDropdown = () => {

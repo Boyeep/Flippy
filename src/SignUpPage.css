@@ -14,6 +14,7 @@
   width: 400px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin-top: 4rem;
 }
 
 .sign-up-box h1 {
@@ -47,15 +48,18 @@
   background: #3f51b5;
   color: white;
   border: none;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 10rem;
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease;
+  box-shadow: 0 4px 0 #2c3a8b;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .sign-up-button:hover {
   background: #2c3a8b;
+  transform: translateY(-2px); /* Tombol naik sedikit saat hover */
 }
 
 .login-link {

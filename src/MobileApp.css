@@ -1,0 +1,629 @@
+/* Media Query for Mobile Devices */
+@media (max-width: 768px) {
+
+  .header {
+  position: relative; /* Posisi relatif untuk referensi elemen di dalamnya */
+  width: 100%;
+  background: white;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan */
+}
+
+  body {
+    font-size: 14px; /* Adjust font size for smaller screens */
+    padding: 1rem; /* Add padding for better spacing */
+  }
+
+  .hero h1 {
+    font-size: 1.8rem; /* Smaller font size for headings */
+    line-height: 1.4; /* Adjust line height */
+  }
+
+  .hero h2 {
+    font-size: 1.2rem; /* Adjust subtitle size */
+    margin-bottom: 1rem;
+  }
+
+  .hero-button {
+    width: 80px; /* Smaller button width */
+    height: 35px; /* Smaller button height */
+    font-size: 12px; /* Adjust font size */
+    margin-top: 1rem; /* Add spacing above the button */
+  }
+}
+
+/* Mobile Styles for Navbar */
+@media (max-width: 768px) {
+    
+  .navbar {
+    flex-direction: column; /* Susun elemen secara vertikal */
+    align-items: flex-start; /* Rata kiri */
+    padding: 0.5rem; /* Kurangi padding */
+  }
+
+  .logo {
+    margin-bottom: 1rem;
+    margin-left: 0.5rem; /* Tambahkan jarak di bawah logo */
+    margin-top: 0.5rem; /* Tambahkan jarak di atas logo */
+  }
+
+.nav-links {
+  display: none; /* Sembunyikan menu secara default */
+  flex-direction: column; /* Susun link secara vertikal */
+  gap: 1rem; /* Tambahkan jarak antar link */
+  width: 100%; /* Pastikan menu memenuhi lebar layar */
+  background: white; /* Tambahkan latar belakang */
+  padding: 1rem; /* Tambahkan padding */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan */
+  position: absolute; /* Pastikan menu berada di atas konten lain */
+  top: 60px; /* Sesuaikan dengan tinggi header */
+  left: 0;
+  z-index: 1000;
+}
+
+  .nav-links.open {
+    display: flex; /* Tampilkan link saat menu dibuka */
+  }
+
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+  display: block; /* Tampilkan tombol hamburger */
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute; /* Posisi absolut untuk memindahkan ke pojok kanan atas */
+  top: 1rem; /* Jarak dari atas */
+  right: 1rem; /* Jarak dari kanan */
+  z-index: 1001; /* Pastikan tombol berada di atas elemen lain */
+  margin-right: 2rem;
+  margin-top: 0.1rem;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .hamburger-menu {
+    display: block; /* Show hamburger menu on mobile */
+  }
+
+  .nav-links {
+    display: none; /* Hide links by default */
+    flex-direction: column;
+    gap: 1rem;
+    background: white;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.open {
+    display: flex; /* Show links when menu is open */
+  }
+
+  .auth-buttons {
+    display: none; /* Hide auth buttons on mobile */
+  }
+}
+
+/* Mobile Styles for Hero Section */
+@media (max-width: 768px) {
+  .hero {
+    height: 77vh; /* Sesuaikan tinggi dengan konten */
+    padding: 2rem 1rem; /* Kurangi padding untuk layar kecil */
+    text-align: center; /* Pastikan teks rata tengah */
+    background-size: cover; /* Pastikan gambar latar tetap proporsional */
+  }
+
+  .hero h1 {
+    font-size: 2rem; /* Kurangi ukuran font untuk heading */
+    line-height: 1.3; /* Sesuaikan jarak antar baris */
+    margin-bottom: 1rem; /* Tambahkan jarak di bawah heading */
+  }
+
+  .hero h2 {
+    font-size: 1.5rem; /* Kurangi ukuran font untuk subheading */
+    margin-bottom: 1rem; /* Tambahkan jarak di bawah subheading */
+  }
+
+  .hero p {
+    font-size: 1rem; /* Kurangi ukuran font untuk paragraf */
+    margin-bottom: 1.5rem; /* Tambahkan jarak di bawah paragraf */
+  }
+
+  .hero-button {
+    font-size: 0.9rem; /* Kurangi ukuran font tombol */
+    width: auto; /* Sesuaikan lebar tombol dengan teks */
+    padding: 0.6rem 1.5rem; /* Sesuaikan padding tombol */
+    margin: 0 auto; /* Pastikan tombol berada di tengah */
+  }
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 2%; /* Reduce padding for smaller screens */
+    text-align: center; /* Center-align text */
+    background-size: cover; /* Ensure the background image scales properly */
+  }
+
+  .hero h1 {
+    font-size: 2rem; /* Reduce font size */
+    line-height: 1.3; /* Adjust line height */
+  }
+
+  .hero h2 {
+    font-size: 1.5rem; /* Adjust subtitle size */
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    font-size: 1rem; /* Adjust paragraph size */
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-button {
+    font-size: 0.9rem; /* Reduce button font size */
+    padding: 0.6rem 1.5rem; /* Adjust button padding */
+  }
+}
+
+/* Mobile Styles for Popular Courses Section */
+@media (max-width: 768px) {
+  .popular-courses {
+    padding: 2rem 1rem; /* Kurangi padding untuk layar kecil */
+    height: 81vh; /* Sesuaikan tinggi dengan konten */
+    margin-top: 2rem; /* Kurangi jarak atas */
+  }
+
+  .popular-courses h2 {
+    font-size: 1.5rem; /* Kurangi ukuran font heading */
+    margin-bottom: 1rem; /* Tambahkan jarak bawah */
+  }
+
+  .popular-courses-subtitle {
+    font-size: 1rem; /* Ukuran font subtitle tetap */
+    margin-bottom: 1.5rem; /* Tambahkan jarak bawah */
+  }
+
+  .courses-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Sesuaikan jumlah kolom */
+    gap: 1rem; /* Kurangi jarak antar kartu */
+  }
+
+  .course-card {
+    padding: 1rem; /* Kurangi padding kartu */
+    font-size: 0.9rem; /* Kurangi ukuran font */
+  }
+
+  .course-card h3 {
+    font-size: 1rem; /* Kurangi ukuran font judul */
+    margin-bottom: 0.5rem; /* Tambahkan jarak bawah */
+  }
+
+  .course-card p {
+    font-size: 0.8rem; /* Kurangi ukuran font deskripsi */
+    margin-bottom: 1rem; /* Tambahkan jarak bawah */
+  }
+
+  .courses-scroll-container {
+    padding: 1rem; /* Kurangi padding scroll container */
+    max-width: 100%; /* Pastikan scroll container memenuhi lebar layar */
+  }
+
+  .scroll-button {
+    display: none; /* Sembunyikan tombol scroll di layar kecil */
+  }
+}
+
+/* Mobile Styles for About Us Section */
+@media (max-width: 768px) {
+  .about-us {
+    margin-right: 8rem;
+    display: flex;
+    flex-direction: column; /* Susun elemen secara vertikal */
+    align-items: center; /* Rata tengah elemen */
+    padding: 2rem 1rem; /* Tambahkan padding */
+    gap: 1.5rem; /* Tambahkan jarak antar elemen */
+    text-align: center; /* Rata tengah teks */
+  }
+
+  .about-us-image {
+    order: -1; /* Pindahkan gambar ke atas */
+    max-width: 100%; /* Pastikan gambar memenuhi lebar layar */
+    text-align: center; /* Rata tengah gambar */
+  }
+
+  .about-us-image img {
+    width: 90%; /* Sesuaikan ukuran gambar */
+    border-radius: 10px; /* Tambahkan sudut melengkung */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan */
+    margin: 0 auto; /* Rata tengah gambar */
+    margin-bottom: 38rem;
+    margin-left: 8.8rem;
+  }
+
+  .about-us-content {
+    max-width: 100%; /* Pastikan konten memenuhi lebar layar */
+    text-align: center; /* Rata tengah teks */
+  }
+
+  .about-us-content h2 {
+    font-size: 1rem; /* Ukuran font heading */
+    color: #ff7a00; /* Warna heading */
+    margin-bottom: 1rem; /* Tambahkan jarak bawah */
+  }
+
+  .about-us-content p {
+    font-size: 0.5rem; /* Ukuran font paragraf */
+    line-height: 1.6; /* Sesuaikan jarak antar baris */
+    color: #333; /* Warna teks */
+    margin-bottom: 1rem; /* Tambahkan jarak antar paragraf */
+  }
+}
+
+/* Mobile Styles for Why Choose Us Section */
+@media (max-width: 768px) {
+  .why-choose-us {
+    padding: 3rem 1rem; /* Kurangi padding untuk layar kecil */
+    height: 84vh; /* Sesuaikan tinggi dengan konten */
+    margin-top: 2rem; /* Kurangi jarak atas */
+    text-align: center; /* Pastikan teks rata tengah */
+  }
+
+  .why-choose-us h2 {
+    font-size: 1.8rem; /* Kurangi ukuran font heading */
+    margin-bottom: 1.5rem; /* Tambahkan jarak bawah */
+  }
+
+  .features-list {
+    flex-direction: column; /* Susun fitur secara vertikal */
+    gap: 1.5rem; /* Tambahkan jarak antar fitur */
+  }
+
+  .feature {
+    max-width: 100%; /* Pastikan fitur memenuhi lebar layar */
+    padding: 1rem; /* Kurangi padding fitur */
+  }
+
+  .feature h3 {
+    font-size: 1.2rem; /* Kurangi ukuran font judul fitur */
+    margin-bottom: 0.5rem; /* Tambahkan jarak bawah */
+  }
+
+  .feature p {
+    font-size: 0.9rem; /* Kurangi ukuran font deskripsi fitur */
+    line-height: 1.5; /* Sesuaikan jarak antar baris */
+  }
+}
+
+/* Mobile Styles for All Courses Section */
+@media (max-width: 768px) {
+  .all-courses {
+    padding: 2rem 1rem; /* Kurangi padding untuk layar kecil */
+    height: auto; /* Sesuaikan tinggi dengan konten */
+    margin-top: 1rem; /* Kurangi jarak atas */
+    text-align: center; /* Pastikan teks rata tengah */
+  }
+
+  .all-courses h2 {
+    font-size: 1.8rem; /* Kurangi ukuran font heading */
+    margin-bottom: 1rem; /* Tambahkan jarak bawah */
+  }
+
+  .search-bar {
+    flex-direction: column; /* Susun elemen secara vertikal */
+    gap: 1rem; /* Tambahkan jarak antar elemen */
+  }
+
+  .search-container {
+    width: 100%; /* Pastikan input memenuhi lebar layar */
+  }
+
+  .search-input {
+    width: 100%; /* Input memenuhi lebar layar */
+    font-size: 1rem; /* Ukuran font tetap */
+    padding: 0.5rem; /* Sesuaikan padding */
+  }
+
+  .search-button {
+    width: 100%; /* Tombol memenuhi lebar layar */
+    padding: 0.5rem; /* Sesuaikan padding */
+  }
+
+  .courses-list {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Sesuaikan jumlah kolom */
+    gap: 1rem; /* Kurangi jarak antar kartu */
+  }
+
+  .course-item {
+    padding: 1rem; /* Kurangi padding kartu */
+    font-size: 0.9rem; /* Kurangi ukuran font */
+  }
+
+  .course-item h3 {
+    font-size: 1rem; /* Kurangi ukuran font judul */
+    margin-bottom: 0.5rem; /* Tambahkan jarak bawah */
+  }
+
+  .course-item p {
+    font-size: 0.8rem; /* Kurangi ukuran font deskripsi */
+    margin-bottom: 1rem; /* Tambahkan jarak bawah */
+  }
+
+  .pagination {
+    gap: 0.5rem; /* Kurangi jarak antar tombol */
+  }
+
+  .pagination-button {
+    width: 30px; /* Kurangi ukuran tombol */
+    height: 30px; /* Kurangi ukuran tombol */
+    font-size: 0.8rem; /* Kurangi ukuran font */
+  }
+}
+
+/* Mobile Styles for Footer Section */
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 1rem; /* Kurangi padding untuk layar kecil */
+    text-align: center; /* Pastikan teks rata tengah */
+  }
+
+  .footer p {
+    font-size: 0.8rem; /* Kurangi ukuran font */
+    line-height: 1.5; /* Sesuaikan jarak antar baris */
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column; /* Susun link secara vertikal */
+    gap: 1rem; /* Tambahkan jarak antar link */
+    margin-top: 1rem; /* Tambahkan jarak atas */
+  }
+
+  .footer-links a {
+    font-size: 0.9rem; /* Kurangi ukuran font link */
+    color: #ccc; /* Warna abu-abu terang */
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: #fff; /* Ubah warna menjadi putih saat hover */
+  }
+}
+
+/* Gaya khusus untuk mobile */
+@media (max-width: 768px) {
+  /* Hero Section */
+  .courses-hero {
+    height: auto; /* Sesuaikan tinggi agar tidak terlalu besar */
+    padding: 1rem; /* Kurangi padding */
+    background-position: top; /* Fokus pada bagian atas gambar */
+  }
+
+  .hero-title {
+    font-size: 1.5rem; /* Kurangi ukuran font */
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 2rem; /* Kurangi ukuran font */
+    line-height: 1.2; /* Sesuaikan line-height */
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-description {
+    font-size: 1rem; /* Kurangi ukuran font */
+    margin-bottom: 1rem;
+  }
+
+  /* Grid Section */
+  .courses-page-grid {
+    grid-template-columns: 1fr; /* Tampilkan satu kolom */
+    gap: 1rem; /* Kurangi jarak antar elemen */
+  }
+
+  .courses-page-card {
+    padding: 0.8rem; /* Kurangi padding */
+  }
+
+  .courses-page-card h3 {
+    font-size: 1rem; /* Kurangi ukuran font */
+  }
+
+  .courses-page-card p {
+    font-size: 0.8rem; /* Kurangi ukuran font */
+  }
+
+  .courses-page-button {
+    font-size: 0.9rem; /* Kurangi ukuran font */
+    padding: 0.4rem 0.8rem; /* Kurangi padding */
+  }
+}
+
+/* Gaya khusus untuk mobile */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 1rem; /* Tambahkan padding untuk ruang di sekitar kontainer */
+    height: auto; /* Sesuaikan tinggi agar fleksibel */
+  }
+
+  .login-box {
+    width: 90%; /* Kurangi lebar untuk menyesuaikan layar kecil */
+    padding: 1.5rem; /* Kurangi padding */
+  }
+
+  .login-box h1 {
+    font-size: 1.5rem; /* Kurangi ukuran font */
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem; /* Kurangi jarak antar elemen */
+    margin-right: 0; /* Hilangkan margin kanan */
+  }
+
+  .form-group label {
+    font-size: 0.8rem; /* Kurangi ukuran font */
+  }
+
+  .form-group input {
+    padding: 0.6rem; /* Kurangi padding */
+    font-size: 0.9rem; /* Kurangi ukuran font */
+  }
+
+  .login-button {
+    font-size: 0.9rem; /* Kurangi ukuran font */
+    padding: 0.6rem 1.5rem; /* Kurangi padding */
+  }
+
+  .signup-link {
+    font-size: 0.8rem; /* Kurangi ukuran font */
+    margin-top: 0.5rem;
+  }
+}
+
+/* Gaya khusus untuk mobile */
+@media (max-width: 768px) {
+  .sign-up-container {
+    padding: 1rem; /* Tambahkan padding untuk ruang di sekitar kontainer */
+    height: auto; /* Sesuaikan tinggi agar fleksibel */
+  }
+
+  .sign-up-box {
+    width: 90%; /* Kurangi lebar untuk menyesuaikan layar kecil */
+    padding: 1.5rem; /* Kurangi padding */
+  }
+
+  .sign-up-box h1 {
+    font-size: 1.5rem; /* Kurangi ukuran font */
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem; /* Kurangi jarak antar elemen */
+    margin-right: 0; /* Hilangkan margin kanan */
+  }
+
+  .form-group label {
+    font-size: 0.8rem; /* Kurangi ukuran font */
+  }
+
+  .form-group input {
+    padding: 0.6rem; /* Kurangi padding */
+    font-size: 0.9rem; /* Kurangi ukuran font */
+  }
+
+  .sign-up-button {
+    font-size: 0.9rem; /* Kurangi ukuran font */
+    padding: 0.6rem 1.5rem; /* Kurangi padding */
+  }
+
+  .login-link {
+    font-size: 0.8rem; /* Kurangi ukuran font */
+    margin-top: 0.5rem;
+  }
+}
+
+/* Gaya khusus untuk mobile */
+@media (max-width: 768px) {
+  .forgot-password-container {
+    padding: 1rem; /* Tambahkan padding untuk ruang di sekitar kontainer */
+    height: auto; /* Sesuaikan tinggi agar fleksibel */
+  }
+
+  .forgot-password-box {
+    width: 90%; /* Kurangi lebar untuk menyesuaikan layar kecil */
+    padding: 1.5rem; /* Kurangi padding */
+  }
+
+  .forgot-password-box h1 {
+    font-size: 1.5rem; /* Kurangi ukuran font */
+    margin-bottom: 1rem;
+  }
+
+  .forgot-password-box p {
+    font-size: 0.9rem; /* Kurangi ukuran font */
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem; /* Kurangi jarak antar elemen */
+    margin-right: 0; /* Hilangkan margin kanan */
+  }
+
+  .form-group label {
+    font-size: 0.8rem; /* Kurangi ukuran font */
+  }
+
+  .form-group input {
+    padding: 0.6rem; /* Kurangi padding */
+    font-size: 0.9rem; /* Kurangi ukuran font */
+  }
+
+  .forgot-password-button {
+    font-size: 0.9rem; /* Kurangi ukuran font */
+    padding: 0.6rem 1.5rem; /* Kurangi padding */
+  }
+
+  .login-link {
+    font-size: 0.8rem; /* Kurangi ukuran font */
+    margin-top: 0.5rem;
+  }
+}
+
+/* Gaya khusus untuk mobile */
+@media (max-width: 768px) {
+  .create-password-container {
+    padding: 1rem; /* Tambahkan padding untuk ruang di sekitar kontainer */
+    height: auto; /* Sesuaikan tinggi agar fleksibel */
+  }
+
+  .create-password-box {
+    width: 90%; /* Kurangi lebar untuk menyesuaikan layar kecil */
+    padding: 1.5rem; /* Kurangi padding */
+  }
+
+  .create-password-box h1 {
+    font-size: 1.5rem; /* Kurangi ukuran font */
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem; /* Kurangi jarak antar elemen */
+  }
+
+  .form-group label {
+    font-size: 0.8rem; /* Kurangi ukuran font */
+  }
+
+  .form-group input {
+    padding: 0.6rem; /* Kurangi padding */
+    font-size: 0.9rem; /* Kurangi ukuran font */
+  }
+
+  .reset-password-button {
+    font-size: 0.9rem; /* Kurangi ukuran font */
+    padding: 0.6rem 1.5rem; /* Kurangi padding */
+  }
+}
+
+/* Gaya khusus untuk mobile */
+@media (max-width: 768px) {
+  .floating-image {
+    width: 50px; /* Kurangi ukuran gambar */
+    bottom: 1rem; /* Kurangi jarak dari bawah */
+    right: 1rem; /* Kurangi jarak dari kanan */
+  }
+
+  .auth-buttons .signup {
+    width: 70px; /* Kurangi lebar tombol */
+    height: 25px; /* Kurangi tinggi tombol */
+    font-size: 12px; /* Kurangi ukuran font */
+    line-height: 15px; /* Sesuaikan tinggi baris */
+  }
+}

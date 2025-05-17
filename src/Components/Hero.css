@@ -9,7 +9,7 @@
 }
 
 .hero .highlight {
-  color: #ff7f00; /* Warna untuk teks yang disorot */
+  color: #ff7f00;
 }
 
 .start-button {
@@ -22,6 +22,7 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  
 }
 
 .start-button:hover {

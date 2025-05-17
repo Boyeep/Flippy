@@ -47,25 +47,6 @@ const CoursesPage: React.FC = () => {
           </div>
         ))}
       </div>
-
-      {/* Floating Image */}
-      <img
-        src="/Images/CreateFlashCard-Hovering.jpg"
-        alt="Create Flash Card"
-        className="floating-image"
-        style={{
-          position: "fixed",
-          bottom: "2rem",
-          right: "2rem",
-          width: "70px",
-          height: "auto",
-          zIndex: 1000,
-          cursor: "pointer",
-          transition: "transform 0.3s ease",
-        }}
-        onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
-        onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-      />
     </div>
   );
 };

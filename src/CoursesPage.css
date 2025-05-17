@@ -2,14 +2,14 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden; /* Hilangkan scroll horizontal */
+  overflow-x: hidden;
 }
 
 .courses-page-container {
     padding: 2rem;
     text-align: center;
-    margin: 0; /* Hilangkan margin */
-    padding: 0; /* Hilangkan padding */
+    margin: 0;
+    padding: 0;;
 }
 
 .courses-page-container h1 {
@@ -22,6 +22,7 @@ body, html {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
+    
 }
 
 .courses-page-card {
@@ -77,7 +78,6 @@ body, html {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,29 +85,18 @@ body, html {
     color: #ff9800;
     padding: 2rem;
     position: relative;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    margin-bottom: 2rem;
   }
-
-.courses-hero {
-  background-image: url("/Images/CoursePageHero-Background.jpg"); /* Path ke gambar */
-  background-size: cover; /* Pastikan gambar menutupi seluruh area */
-  background-position: center; /* Pusatkan gambar */
-  background-repeat: no-repeat; /* Jangan ulangi gambar */
-  height: 100vh; /* Tinggi hero section menjadi satu layar penuh */
-  width: 100vw; /* Pastikan lebar mencakup seluruh layar */
-  margin: 0; /* Hilangkan margin */
-  padding: 0; /* Hilangkan padding */
-  display: flex; /* Gunakan flexbox untuk memusatkan konten */
-  align-items: center; /* Pusatkan konten secara vertikal */
-  justify-content: center; /* Pusatkan konten secara horizontal */
-  text-align: center; /* Teks berada di tengah */
-  position: relative; /* Untuk elemen dekoratif atau overlay */
-  overflow: hidden; /* Pastikan tidak ada elemen yang keluar dari batas */
-}
 
   .hero-title {
   font-size: 32px;
   font-weight: 800;
-  color: #ff9800; /* Warna oranye */
+  color: #ff9800;
   margin-bottom: 0.5rem;
   font-family: "Poppins", sans-serif;
 }
@@ -115,20 +104,20 @@ body, html {
 .hero-subtitle {
   font-size: 64px;
   font-weight: 700;
-  color: #3f51b5; /* Warna biru */
+  color: #3f51b5;
   line-height: 100%;
   margin-bottom: 1rem;
   font-family: "Poppins", sans-serif;
 }
 
 .hero-subtitle .highlight {
-  color: #ff9800; /* Warna oranye untuk highlight */
+  color: #ff9800;
 }
 
 .hero-description {
   font-size: 23px;
   font-weight: 500;
-  color: #3f51b5; /* Warna biru */
+  color: #3f51b5;
   font-family: "Poppins", sans-serif;
 }
 
@@ -157,15 +146,15 @@ body, html {
   .courses-hero h2 {
   font-size: 3rem;
   font-weight: bold;
-  color: #3f51b5; /* Warna biru */
+  color: #3f51b5;
   margin-bottom: 1rem;
 }
 
   .courses-hero h2 .highlight {
-  color: #ff9800; /* Warna oranye untuk highlight */
+  color: #ff9800;
 }
   
   .courses-hero p {
   font-size: 1rem;
-  color: #3f51b5; /* Warna biru */
+  color: #3f51b5;
 }

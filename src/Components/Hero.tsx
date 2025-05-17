@@ -22,12 +22,6 @@ const Hero = () => {
           </button>
         </div>
       </div>
-      {/* Gambar di kanan bawah */}
-      <img
-        src="/Images/CreateFlashCard-Hovering.jpg"
-        alt="Create Flash Card"
-        className="floating-image"
-      />
     </section>
   );
 };
