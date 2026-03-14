@@ -1,13 +1,11 @@
-import { catalogCourses } from "@/lib/site-data";
+import { fetchJson } from "@/lib/api";
 import type { Course } from "@/types/course";
 
-export async function getCourses(): Promise<Course[]> {
-  await new Promise((resolve) => setTimeout(resolve, 150));
+type CourseListResponse = {
+  data: Course[];
+};
 
-  return catalogCourses.map(({ title, author, category, summary }) => ({
-    title,
-    author,
-    category,
-    summary,
-  }));
+export async function getCourses(): Promise<Course[]> {
+  const response = await fetchJson<CourseListResponse>("/courses");
+  return response.data;
 }

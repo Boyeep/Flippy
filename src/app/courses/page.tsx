@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { fullCourseList } from "@/lib/site-data";
 import { PlaceholderArt } from "@/components/ui/placeholder-art";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { getCourses } from "@/features/courses/services/course-service";
 
-export default function CoursesPage() {
+export default async function CoursesPage() {
+  const courses = await getCourses();
+
   return (
     <main className="px-0 pb-20 pt-8">
       <section className="relative mx-auto w-[min(var(--max-width),calc(100%-2rem))] overflow-hidden rounded-[32px] bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.14),transparent_28%),linear-gradient(135deg,rgba(16,52,67,0.88),rgba(31,111,120,0.82))] px-[clamp(2rem,4vw,3.5rem)] py-[clamp(2rem,4vw,3.5rem)] text-white before:absolute before:bottom-[-35%] before:right-[-15%] before:aspect-square before:w-[280px] before:rounded-full before:bg-white/10 before:content-[''] max-[720px]:w-[min(var(--max-width),calc(100%-1.25rem))]">
@@ -30,8 +32,8 @@ export default function CoursesPage() {
           <h2>Kumpulan materi yang siap dipelajari sekarang.</h2>
         </div>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
-          {fullCourseList.map((course) => (
-            <Card key={course.title} className="rounded-[24px] border border-white/60 bg-white/80 p-4 shadow-[var(--shadow)]">
+          {courses.map((course) => (
+            <Card key={course.id} className="rounded-[24px] border border-white/60 bg-white/80 p-4 shadow-[var(--shadow)]">
               <div className="mb-4 aspect-[4/3] overflow-hidden rounded-[16px]">
                 <PlaceholderArt title={course.title} label={course.category} tone="soft" />
               </div>

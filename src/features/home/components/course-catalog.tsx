@@ -24,7 +24,7 @@ export function CourseCatalog() {
       const matchesCategory = category === "Semua" || course.category === category;
       const matchesQuery =
         query.trim().length === 0 ||
-        `${course.title} ${course.author} ${course.category}`
+        `${course.title} ${course.category} ${course.summary}`
           .toLowerCase()
           .includes(query.toLowerCase());
 
@@ -78,7 +78,7 @@ export function CourseCatalog() {
             </Card>
           ) : null}
           {filteredCourses.map((course) => (
-            <Card key={`${course.title}-${course.author}`} className="rounded-[24px] border border-[rgba(31,41,55,0.06)] bg-white/85 p-4">
+            <Card key={course.id} className="rounded-[24px] border border-[rgba(31,41,55,0.06)] bg-white/85 p-4">
               <div className="mb-4 aspect-[4/3] overflow-hidden rounded-[16px]">
                 <PlaceholderArt title={course.title} label={course.category} tone="neutral" className="h-full w-full" />
               </div>
@@ -89,7 +89,7 @@ export function CourseCatalog() {
                 <h3 className="mb-2 mt-0 text-[1.17rem]">{course.title}</h3>
                 <p className="m-0 leading-[1.65] text-[var(--muted-text)]">{course.summary}</p>
                 <div className="mt-4 flex items-center justify-between gap-4">
-                  <span className="text-[0.95rem] text-[var(--muted-text)]">Dibuat oleh {course.author}</span>
+                  <span className="text-[0.95rem] text-[var(--muted-text)]">{course.published ? "Published" : "Draft"}</span>
                   <Button asChild>
                     <Link href="/create-flashcard">Kerjakan</Link>
                   </Button>
