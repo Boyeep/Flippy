@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { PlaceholderArt } from "@/components/ui/placeholder-art";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { getCourses } from "@/features/courses/services/course-service";
+import { FlashcardSetGrid } from "@/features/flashcards/components/flashcard-set-grid";
 import { getFlashcardSets } from "@/features/flashcards/services/flashcard-service";
+import { CourseCardGrid } from "@/features/courses/components/course-card-grid";
 
 export default async function CoursesPage() {
   const courses = await getCourses();
@@ -33,70 +32,13 @@ export default async function CoursesPage() {
           <span className="section-heading__eyebrow">Flashcard Sets</span>
           <h2>Flashcard yang sudah kamu publish muncul dan bisa langsung dipelajari di sini.</h2>
         </div>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-5">
-          {flashcardSets.length > 0 ? (
-            flashcardSets.map((flashcardSet) => (
-              <Card key={flashcardSet.id} className="rounded-[24px] border border-white/60 bg-white/80 p-4 shadow-[var(--shadow)]">
-                <div className="mb-4 aspect-[4/3] overflow-hidden rounded-[16px]">
-                  <PlaceholderArt title={flashcardSet.title} label={`${flashcardSet.card_count} cards`} tone="neutral" />
-                </div>
-                <CardContent className="p-0">
-                  <div className="mb-3 flex flex-wrap items-center gap-2">
-                    <Badge variant="outline" className="bg-[var(--brand-soft)] text-[var(--brand-deep)]">
-                      {flashcardSet.visibility}
-                    </Badge>
-                    <Badge variant="outline">{flashcardSet.card_count} cards</Badge>
-                  </div>
-                  <h3 className="mb-1 text-[1.15rem]">{flashcardSet.title}</h3>
-                  <p className="mb-4 text-[var(--muted-text)]">
-                    {flashcardSet.description || "Flashcard set ini siap dipakai untuk belajar."}
-                  </p>
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-sm text-[var(--muted-text)]">{flashcardSet.estimated_minutes} min</span>
-                    <Button asChild variant="secondary">
-                      <Link href={`/flashcard-sets/${flashcardSet.slug}`}>Study</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))
-          ) : (
-            <Card className="rounded-[24px] border border-white/60 bg-white/80 p-4 shadow-[var(--shadow)]">
-              <CardContent className="flex min-h-40 flex-col items-center justify-center gap-3 text-center">
-                <p className="text-[var(--muted-text)]">Belum ada flashcard set publik yang siap dipelajari.</p>
-                <Button asChild>
-                  <Link href="/create-flashcard">Create flashcard</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          )}
-        </div>
+        <FlashcardSetGrid flashcardSets={flashcardSets} />
 
         <div className="section-heading">
           <span className="section-heading__eyebrow">All Courses</span>
           <h2>Kumpulan materi yang siap dipelajari sekarang.</h2>
         </div>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
-          {courses.map((course) => (
-            <Card key={course.id} className="rounded-[24px] border border-white/60 bg-white/80 p-4 shadow-[var(--shadow)]">
-              <div className="mb-4 aspect-[4/3] overflow-hidden rounded-[16px]">
-                <PlaceholderArt title={course.title} label={course.category} tone="soft" />
-              </div>
-              <CardContent className="p-0">
-                <h3 className="mb-1 text-[1.15rem]">{course.title}</h3>
-                <p className="mb-4 text-[var(--muted-text)]">{course.description}</p>
-                <div className="flex items-center justify-between gap-4">
-                  <Badge variant="outline" className="bg-[var(--brand-soft)] text-[var(--brand-deep)]">
-                    {course.category}
-                  </Badge>
-                  <Button asChild variant="secondary">
-                    <Link href="/create-flashcard">Start</Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <CourseCardGrid courses={courses} />
       </section>
     </main>
   );
