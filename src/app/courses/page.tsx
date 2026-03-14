@@ -4,9 +4,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getCourses } from "@/features/courses/services/course-service";
+import { getFlashcardSets } from "@/features/flashcards/services/flashcard-service";
 
 export default async function CoursesPage() {
   const courses = await getCourses();
+  const flashcardSets = await getFlashcardSets();
 
   return (
     <main className="px-0 pb-20 pt-8">
@@ -27,6 +29,49 @@ export default async function CoursesPage() {
       </section>
 
       <section className="mx-auto mt-12 grid w-[min(var(--max-width),calc(100%-2rem))] gap-6 max-[720px]:w-[min(var(--max-width),calc(100%-1.25rem))]">
+        <div className="section-heading">
+          <span className="section-heading__eyebrow">Flashcard Sets</span>
+          <h2>Flashcard yang sudah kamu publish muncul dan bisa langsung dipelajari di sini.</h2>
+        </div>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-5">
+          {flashcardSets.length > 0 ? (
+            flashcardSets.map((flashcardSet) => (
+              <Card key={flashcardSet.id} className="rounded-[24px] border border-white/60 bg-white/80 p-4 shadow-[var(--shadow)]">
+                <div className="mb-4 aspect-[4/3] overflow-hidden rounded-[16px]">
+                  <PlaceholderArt title={flashcardSet.title} label={`${flashcardSet.card_count} cards`} tone="neutral" />
+                </div>
+                <CardContent className="p-0">
+                  <div className="mb-3 flex flex-wrap items-center gap-2">
+                    <Badge variant="outline" className="bg-[var(--brand-soft)] text-[var(--brand-deep)]">
+                      {flashcardSet.visibility}
+                    </Badge>
+                    <Badge variant="outline">{flashcardSet.card_count} cards</Badge>
+                  </div>
+                  <h3 className="mb-1 text-[1.15rem]">{flashcardSet.title}</h3>
+                  <p className="mb-4 text-[var(--muted-text)]">
+                    {flashcardSet.description || "Flashcard set ini siap dipakai untuk belajar."}
+                  </p>
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-sm text-[var(--muted-text)]">{flashcardSet.estimated_minutes} min</span>
+                    <Button asChild variant="secondary">
+                      <Link href={`/flashcard-sets/${flashcardSet.slug}`}>Study</Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <Card className="rounded-[24px] border border-white/60 bg-white/80 p-4 shadow-[var(--shadow)]">
+              <CardContent className="flex min-h-40 flex-col items-center justify-center gap-3 text-center">
+                <p className="text-[var(--muted-text)]">Belum ada flashcard set publik yang siap dipelajari.</p>
+                <Button asChild>
+                  <Link href="/create-flashcard">Create flashcard</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+        </div>
+
         <div className="section-heading">
           <span className="section-heading__eyebrow">All Courses</span>
           <h2>Kumpulan materi yang siap dipelajari sekarang.</h2>

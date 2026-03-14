@@ -9,6 +9,14 @@ type FlashcardResponse = {
   data: Flashcard;
 };
 
+type FlashcardSetListResponse = {
+  data: FlashcardSet[];
+};
+
+type FlashcardListResponse = {
+  data: Flashcard[];
+};
+
 async function parseResponse<T>(response: Response): Promise<T> {
   const payload = (await response.json()) as T | { error?: string };
   if (!response.ok) {
@@ -44,5 +52,41 @@ export async function createFlashcard(accessToken: string, slug: string, input: 
   });
 
   const payload = await parseResponse<FlashcardResponse>(response);
+  return payload.data;
+}
+
+export async function getFlashcardSets(): Promise<FlashcardSet[]> {
+  const response = await fetch(buildApiUrl("/flashcard-sets"), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    next: { revalidate: 30 },
+  });
+
+  const payload = await parseResponse<FlashcardSetListResponse>(response);
+  return payload.data;
+}
+
+export async function getFlashcardSet(slug: string): Promise<FlashcardSet> {
+  const response = await fetch(buildApiUrl(`/flashcard-sets/${slug}`), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    next: { revalidate: 30 },
+  });
+
+  const payload = await parseResponse<FlashcardSetResponse>(response);
+  return payload.data;
+}
+
+export async function getFlashcardsBySet(slug: string): Promise<Flashcard[]> {
+  const response = await fetch(buildApiUrl(`/flashcard-sets/${slug}/cards`), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    next: { revalidate: 30 },
+  });
+
+  const payload = await parseResponse<FlashcardListResponse>(response);
   return payload.data;
 }
