@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://boyeep.github.io/Flippy
+
+# Sitemaps
+Sitemap: https://boyeep.github.io/Flippy/sitemap.xml
