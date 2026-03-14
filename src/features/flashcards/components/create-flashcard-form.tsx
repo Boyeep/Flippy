@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { ChangeEvent, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { createFlashcard, createFlashcardSet } from "@/features/flashcards/services/flashcard-service";
+import { useAuthStore } from "@/features/auth/store/auth-store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,9 +26,11 @@ type FlashcardEntry = {
 
 export function CreateFlashcardForm() {
   const router = useRouter();
+  const accessToken = useAuthStore((state) => state.accessToken);
+  const user = useAuthStore((state) => state.user);
   const [step, setStep] = useState(0);
   const [meta, setMeta] = useState<FlashcardMeta>({
-    madeBy: "",
+    madeBy: user?.full_name || user?.username || "",
     title: "",
     description: "",
     numberOfCards: 3,
@@ -33,6 +38,43 @@ export function CreateFlashcardForm() {
   const [cards, setCards] = useState<FlashcardEntry[]>(
     Array.from({ length: 3 }, () => ({ question: "", answer: "" }))
   );
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const submitMutation = useMutation({
+    mutationFn: async () => {
+      if (!accessToken) {
+        throw new Error("Please log in first to create a flashcard set.");
+      }
+
+      const createdSet = await createFlashcardSet(accessToken, {
+        title: meta.title.trim(),
+        description: meta.description.trim(),
+        visibility: "public",
+        status: "published",
+        language_code: "id",
+        estimated_minutes: Math.max(1, meta.numberOfCards * 2),
+      });
+
+      for (const [index, card] of cards.entries()) {
+        await createFlashcard(accessToken, createdSet.slug, {
+          position: index + 1,
+          question: card.question.trim(),
+          answer: card.answer.trim(),
+        });
+      }
+
+      return createdSet;
+    },
+    onSuccess: (createdSet) => {
+      setSuccessMessage(`Flashcard set "${createdSet.title}" berhasil dibuat.`);
+      router.push("/courses");
+      router.refresh();
+    },
+    onError: (error) => {
+      setErrorMessage(error instanceof Error ? error.message : "Failed to create flashcards.");
+    },
+  });
 
   const updateMeta = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -61,12 +103,34 @@ export function CreateFlashcardForm() {
   };
 
   const handleNext = () => {
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    if (step === 0) {
+      if (!meta.title.trim()) {
+        setErrorMessage("Flashcard title is required.");
+        return;
+      }
+
+      if (meta.numberOfCards < 1) {
+        setErrorMessage("Number of cards must be at least 1.");
+        return;
+      }
+    }
+
+    if (step > 0) {
+      if (!currentCard.question.trim() || !currentCard.answer.trim()) {
+        setErrorMessage("Question and answer are required for each card.");
+        return;
+      }
+    }
+
     if (step < meta.numberOfCards) {
       setStep((current) => current + 1);
       return;
     }
 
-    router.push("/courses");
+    submitMutation.mutate();
   };
 
   const currentCard = cards[Math.max(0, step - 1)];
@@ -80,6 +144,11 @@ export function CreateFlashcardForm() {
           Alur sekarang dipisahkan jelas antara informasi set dan isi kartu,
           jadi lebih gampang dirawat dan lebih enak dipakai.
         </p>
+        {!accessToken ? (
+          <p className="rounded-[20px] border border-amber-200 bg-amber-50 px-4 py-4 text-sm text-amber-800">
+            Login dulu supaya flashcard yang kamu buat bisa tersimpan ke backend.
+          </p>
+        ) : null}
         <div className="grid gap-3">
           <div className={step === 0 ? "rounded-[20px] border border-[rgba(216,95,54,0.2)] bg-[rgba(255,217,191,0.52)] px-4 py-4" : "rounded-[20px] border border-[rgba(31,41,55,0.06)] bg-white/75 px-4 py-4"}>
             <strong>Step 1</strong>
@@ -111,6 +180,14 @@ export function CreateFlashcardForm() {
             <Link href="/courses">Cancel</Link>
           </Button>
         </div>
+        {errorMessage ? (
+          <p className="mb-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{errorMessage}</p>
+        ) : null}
+        {successMessage ? (
+          <p className="mb-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+            {successMessage}
+          </p>
+        ) : null}
 
         {step === 0 ? (
           <form className="grid gap-4">
@@ -147,7 +224,7 @@ export function CreateFlashcardForm() {
             </div>
             <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
               <p className="m-0 leading-[1.75] text-[var(--muted-text)]">Setelah ini kita isi kartu satu per satu.</p>
-              <Button type="button" onClick={handleNext}>
+              <Button type="button" onClick={handleNext} disabled={!accessToken}>
                 Continue
                 <ArrowRight className="h-4 w-4" />
               </Button>
@@ -178,12 +255,13 @@ export function CreateFlashcardForm() {
                 type="button"
                 variant="secondary"
                 onClick={() => setStep((current) => Math.max(0, current - 1))}
+                disabled={submitMutation.isPending}
               >
                 <ArrowLeft className="h-4 w-4" />
                 Back
               </Button>
-              <Button type="button" onClick={handleNext}>
-                {step === meta.numberOfCards ? "Submit" : "Next card"}
+              <Button type="button" onClick={handleNext} disabled={!accessToken || submitMutation.isPending}>
+                {step === meta.numberOfCards ? (submitMutation.isPending ? "Submitting..." : "Submit") : "Next card"}
                 {step === meta.numberOfCards ? <Check className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}
               </Button>
             </div>
