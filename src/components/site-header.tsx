@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Menu } from "lucide-react";
+import { BookOpen, LogOut, Menu } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useAuthSession } from "@/features/auth/hooks/use-auth-session";
+import { useAuthStore } from "@/features/auth/store/auth-store";
 import { useUiStore } from "@/features/shared/store/ui-store";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,8 +21,16 @@ const navItems = [
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const queryClient = useQueryClient();
   const mobileNavOpen = useUiStore((state) => state.mobileNavOpen);
   const setMobileNavOpen = useUiStore((state) => state.setMobileNavOpen);
+  const clearSession = useAuthStore((state) => state.clearSession);
+  const { user, isLoading } = useAuthSession();
+
+  function handleLogout() {
+    clearSession();
+    void queryClient.invalidateQueries({ queryKey: ["auth"] });
+  }
 
   return (
     <header className="sticky top-0 z-30 py-4">
@@ -49,12 +60,28 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-2 max-[900px]:hidden">
-          <Button asChild variant="secondary">
-            <Link href="/login">Login</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/signup">Sign up</Link>
-          </Button>
+          {user ? (
+            <>
+              <span className="rounded-full bg-white/70 px-4 py-2 text-sm text-[var(--muted-text)]">
+                {user.full_name || user.username}
+              </span>
+              <Button type="button" variant="secondary" onClick={handleLogout}>
+                <LogOut className="h-4 w-4" />
+                Logout
+              </Button>
+            </>
+          ) : isLoading ? (
+            <span className="rounded-full bg-white/70 px-4 py-2 text-sm text-[var(--muted-text)]">Loading...</span>
+          ) : (
+            <>
+              <Button asChild variant="secondary">
+                <Link href="/login">Login</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/signup">Sign up</Link>
+              </Button>
+            </>
+          )}
         </div>
         <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
           <SheetTrigger asChild>
@@ -78,16 +105,32 @@ export function SiteHeader() {
                 ))}
               </nav>
               <div className="grid gap-3 pt-2">
-                <SheetClose asChild>
-                  <Button asChild variant="secondary">
-                    <Link href="/login">Login</Link>
-                  </Button>
-                </SheetClose>
-                <SheetClose asChild>
-                  <Button asChild>
-                    <Link href="/signup">Sign up</Link>
-                  </Button>
-                </SheetClose>
+                {user ? (
+                  <>
+                    <div className="rounded-[18px] bg-white px-4 py-4 text-sm text-[var(--muted-text)]">
+                      Signed in as {user.full_name || user.username}
+                    </div>
+                    <SheetClose asChild>
+                      <Button type="button" variant="secondary" onClick={handleLogout}>
+                        <LogOut className="h-4 w-4" />
+                        Logout
+                      </Button>
+                    </SheetClose>
+                  </>
+                ) : (
+                  <>
+                    <SheetClose asChild>
+                      <Button asChild variant="secondary">
+                        <Link href="/login">Login</Link>
+                      </Button>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Button asChild>
+                        <Link href="/signup">Sign up</Link>
+                      </Button>
+                    </SheetClose>
+                  </>
+                )}
               </div>
             </div>
           </SheetContent>

@@ -1,9 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import { FormEvent, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { login, register } from "@/features/auth/services/auth-service";
+import { useAuthStore } from "@/features/auth/store/auth-store";
 
 type Field = {
   id: string;
@@ -18,6 +25,7 @@ type SecondaryLink = {
 };
 
 type AuthFormShellProps = {
+  mode?: "login" | "signup";
   title: string;
   description: string;
   submitLabel: string;
@@ -29,6 +37,7 @@ type AuthFormShellProps = {
 };
 
 export function AuthFormShell({
+  mode,
   title,
   description,
   submitLabel,
@@ -38,6 +47,49 @@ export function AuthFormShell({
   fields,
   secondaryLink,
 }: AuthFormShellProps) {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const setSession = useAuthStore((state) => state.setSession);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const mutation = useMutation({
+    mutationFn: async (formData: FormData) => {
+      if (mode === "login") {
+        return login({
+          email: String(formData.get("email") ?? ""),
+          password: String(formData.get("password") ?? ""),
+        });
+      }
+
+      return register({
+        username: String(formData.get("username") ?? ""),
+        email: String(formData.get("email") ?? ""),
+        password: String(formData.get("password") ?? ""),
+        full_name: String(formData.get("full_name") ?? ""),
+      });
+    },
+    onSuccess: async (session) => {
+      setSession(session);
+      await queryClient.invalidateQueries({ queryKey: ["auth"] });
+      router.push("/");
+      router.refresh();
+    },
+    onError: (error) => {
+      setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
+    },
+  });
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setErrorMessage("");
+    if (!mode) {
+      setErrorMessage("This flow is ready to connect to the next backend endpoint.");
+      return;
+    }
+
+    mutation.mutate(new FormData(event.currentTarget));
+  }
+
   return (
     <main className="mx-auto my-4 grid w-[min(var(--max-width),calc(100%-2rem))] grid-cols-[minmax(300px,0.95fr)_minmax(0,1.05fr)] gap-5 max-[900px]:grid-cols-1 max-[720px]:w-[min(var(--max-width),calc(100%-1.25rem))]">
       <section className="grid min-h-[520px] content-end gap-4 rounded-[32px] bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.16),transparent_28%),linear-gradient(180deg,rgba(16,52,67,0.48),rgba(16,52,67,0.94))] p-[clamp(1.8rem,4vw,3rem)] text-white shadow-[var(--shadow)] max-[900px]:min-h-[320px]">
@@ -55,15 +107,18 @@ export function AuthFormShell({
           <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="grid gap-4">
+          <form className="grid gap-4" onSubmit={handleSubmit}>
             {fields.map((field) => (
               <div key={field.id} className="grid gap-2">
                 <Label htmlFor={field.id}>{field.label}</Label>
                 <Input id={field.id} name={field.id} type={field.type} placeholder={field.placeholder} />
               </div>
             ))}
+            {errorMessage ? (
+              <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{errorMessage}</p>
+            ) : null}
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <Button type="submit">
+              <Button type="submit" disabled={mutation.isPending}>
                 {submitLabel}
                 <ArrowRight className="h-4 w-4" />
               </Button>
