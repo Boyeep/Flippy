@@ -2,19 +2,18 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, MailCheck, RefreshCcw, ShieldAlert } from "lucide-react";
+import { CheckCircle2, MailCheck, ShieldAlert } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { resendVerification, verifyEmail } from "@/features/auth/services/auth-service";
+import { verifyEmail } from "@/features/auth/services/auth-service";
 
 type VerifyEmailPageClientProps = {
   token?: string;
-  email?: string;
 };
 
-export function VerifyEmailPageClient({ token, email }: VerifyEmailPageClientProps) {
+export function VerifyEmailPageClient({ token }: VerifyEmailPageClientProps) {
   const router = useRouter();
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -39,22 +38,6 @@ export function VerifyEmailPageClient({ token, email }: VerifyEmailPageClientPro
     },
   });
 
-  const resendMutation = useMutation({
-    mutationFn: async () => {
-      if (!email) {
-        throw new Error("Missing email address for resending verification.");
-      }
-
-      return resendVerification({ email });
-    },
-    onSuccess: () => {
-      setStatusMessage("Verification email sent again. Please check your inbox.");
-    },
-    onError: (error) => {
-      setErrorMessage(error instanceof Error ? error.message : "Failed to resend verification email.");
-    },
-  });
-
   useEffect(() => {
     if (token && !hasTriggeredVerification.current) {
       hasTriggeredVerification.current = true;
@@ -63,8 +46,6 @@ export function VerifyEmailPageClient({ token, email }: VerifyEmailPageClientPro
       verifyMutation.mutate();
     }
   }, [token, verifyMutation]);
-
-  const isTokenFlow = Boolean(token);
 
   return (
     <main className="mx-auto my-4 grid w-[min(var(--max-width),calc(100%-2rem))] grid-cols-[minmax(300px,0.95fr)_minmax(0,1.05fr)] gap-5 max-[900px]:grid-cols-1 max-[720px]:w-[min(var(--max-width),calc(100%-1.25rem))]">
@@ -82,12 +63,8 @@ export function VerifyEmailPageClient({ token, email }: VerifyEmailPageClientPro
 
       <Card className="rounded-[32px] border border-white/70 bg-white/85 p-[clamp(1.5rem,4vw,2rem)] shadow-[var(--shadow)]">
         <CardHeader className="mb-6 grid gap-2 p-0">
-          <CardTitle>{isTokenFlow ? "Verifying your email" : "Check your inbox"}</CardTitle>
-          <CardDescription>
-            {isTokenFlow
-              ? "We are confirming your verification token now."
-              : "Open the verification email we just sent and click the link inside it."}
-          </CardDescription>
+          <CardTitle>Verifying your email</CardTitle>
+          <CardDescription>We are confirming your verification token now.</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
           {statusMessage ? (
@@ -99,51 +76,25 @@ export function VerifyEmailPageClient({ token, email }: VerifyEmailPageClientPro
             <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{errorMessage}</p>
           ) : null}
 
-          {isTokenFlow ? (
-            <div className="rounded-[28px] bg-[var(--surface)] p-5">
-              <div className="flex items-center gap-3">
-                {verifyMutation.isPending ? (
-                  <MailCheck className="h-5 w-5 text-[var(--accent-brand)]" />
-                ) : errorMessage ? (
-                  <ShieldAlert className="h-5 w-5 text-red-600" />
-                ) : (
-                  <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-                )}
-                <p className="font-semibold">
-                  {verifyMutation.isPending ? "Confirming your email..." : "Verification status updated."}
-                </p>
-              </div>
+          <div className="rounded-[28px] bg-[var(--surface)] p-5">
+            <div className="flex items-center gap-3">
+              {verifyMutation.isPending ? (
+                <MailCheck className="h-5 w-5 text-[var(--accent-brand)]" />
+              ) : errorMessage ? (
+                <ShieldAlert className="h-5 w-5 text-red-600" />
+              ) : (
+                <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+              )}
+              <p className="font-semibold">
+                {verifyMutation.isPending ? "Confirming your email..." : "Verification status updated."}
+              </p>
             </div>
-          ) : (
-            <>
-              <div className="rounded-[28px] bg-[var(--surface)] p-5">
-                <p className="font-semibold text-[var(--text)]">Verification email sent</p>
-                <p className="mt-3 text-sm leading-7 text-[var(--muted-text)]">
-                  {email
-                    ? `We sent a confirmation link to ${email}. Click the link there before trying to log in.`
-                    : "We sent a confirmation link to your email. Click the link there before trying to log in."}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                <Button
-                  type="button"
-                  variant="secondary"
-                  onClick={() => {
-                    setErrorMessage("");
-                    setStatusMessage("");
-                    resendMutation.mutate();
-                  }}
-                  disabled={!email || resendMutation.isPending}
-                >
-                  <RefreshCcw className="h-4 w-4" />
-                  Resend email
-                </Button>
-                <Button asChild>
-                  <Link href="/login">Go to login</Link>
-                </Button>
-              </div>
-            </>
-          )}
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Button asChild>
+              <Link href="/login">Back to login</Link>
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </main>

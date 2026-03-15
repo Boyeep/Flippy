@@ -90,7 +90,7 @@ export function AuthFormShell({
 
       if (mode === "signup") {
         const email = (result as RegisterResponse).user.email;
-        router.push(`/verify-email${email ? `?email=${encodeURIComponent(email)}` : ""}`);
+        router.push(`/confirm-email${email ? `?email=${encodeURIComponent(email)}` : ""}`);
         router.refresh();
         return;
       }
