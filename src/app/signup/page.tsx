@@ -15,6 +15,7 @@ export default function SignUpPage() {
         { id: "full_name", label: "Full name", type: "text", placeholder: "Enter your full name" },
         { id: "email", label: "Email", type: "email", placeholder: "Enter your email" },
         { id: "password", label: "Password", type: "password", placeholder: "Enter your password" },
+        { id: "confirm_password", label: "Confirm password", type: "password", placeholder: "Confirm your password" },
       ]}
     />
   );

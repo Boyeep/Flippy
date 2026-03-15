@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { login, register } from "@/features/auth/services/auth-service";
+import { forgotPassword, login, register } from "@/features/auth/services/auth-service";
 import { useAuthStore } from "@/features/auth/store/auth-store";
 
 type Field = {
@@ -25,7 +25,7 @@ type SecondaryLink = {
 };
 
 type AuthFormShellProps = {
-  mode?: "login" | "signup";
+  mode: "login" | "signup" | "forgot-password";
   title: string;
   description: string;
   submitLabel: string;
@@ -51,9 +51,16 @@ export function AuthFormShell({
   const queryClient = useQueryClient();
   const setSession = useAuthStore((state) => state.setSession);
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const mutation = useMutation({
     mutationFn: async (formData: FormData) => {
+      if (mode === "forgot-password") {
+        return forgotPassword({
+          email: String(formData.get("email") ?? ""),
+        });
+      }
+
       if (mode === "login") {
         return login({
           email: String(formData.get("email") ?? ""),
@@ -61,14 +68,29 @@ export function AuthFormShell({
         });
       }
 
+      const password = String(formData.get("password") ?? "");
+      const confirmPassword = String(formData.get("confirm_password") ?? "");
+      if (password !== confirmPassword) {
+        throw new Error("Passwords do not match.");
+      }
+
       return register({
         username: String(formData.get("username") ?? ""),
         email: String(formData.get("email") ?? ""),
-        password: String(formData.get("password") ?? ""),
+        password,
         full_name: String(formData.get("full_name") ?? ""),
       });
     },
     onSuccess: async (session) => {
+      if (mode === "forgot-password") {
+        setSuccessMessage("If your email is registered, a reset link will be sent there.");
+        return;
+      }
+
+      if (!session) {
+        return;
+      }
+
       setSession(session);
       await queryClient.invalidateQueries({ queryKey: ["auth"] });
       router.push("/");
@@ -82,10 +104,7 @@ export function AuthFormShell({
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setErrorMessage("");
-    if (!mode) {
-      setErrorMessage("This flow is ready to connect to the next backend endpoint.");
-      return;
-    }
+    setSuccessMessage("");
 
     mutation.mutate(new FormData(event.currentTarget));
   }
@@ -116,6 +135,11 @@ export function AuthFormShell({
             ))}
             {errorMessage ? (
               <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{errorMessage}</p>
+            ) : null}
+            {successMessage ? (
+              <p className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+                {successMessage}
+              </p>
             ) : null}
             <div className="flex flex-wrap items-center justify-between gap-4">
               <Button type="submit" disabled={mutation.isPending}>

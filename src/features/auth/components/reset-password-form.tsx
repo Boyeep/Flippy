@@ -1,35 +1,57 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { CheckCircle2 } from "lucide-react";
 import { FormEvent, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { resetPassword } from "@/features/auth/services/auth-service";
 
 type ResetPasswordFormProps = {
   token?: string;
 };
 
 export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
+  const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      if (!token) {
+        throw new Error("Missing reset token. Please reopen the link from your email.");
+      }
+
+      if (password !== confirmPassword) {
+        throw new Error("Passwords do not match yet.");
+      }
+
+      return resetPassword({
+        token,
+        password,
+      });
+    },
+    onSuccess: () => {
+      setSuccessMessage("Your password has been reset. Redirecting you to login...");
+      setTimeout(() => {
+        router.push("/login");
+      }, 1200);
+    },
+    onError: (error) => {
+      setErrorMessage(error instanceof Error ? error.message : "Failed to reset password.");
+    },
+  });
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    if (!token) {
-      setMessage("Missing reset token. Please reopen the link from your email.");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setMessage("Passwords do not match yet.");
-      return;
-    }
-
-    setMessage("Password reset flow is ready to connect to your API.");
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    mutation.mutate();
   };
 
   return (
@@ -67,12 +89,13 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
                 placeholder="Confirm new password"
               />
             </div>
-            <Button type="submit">
+            <Button type="submit" disabled={mutation.isPending}>
               Reset password
               <CheckCircle2 className="h-4 w-4" />
             </Button>
           </form>
-          {message ? <p className="mt-5 text-[var(--muted-text)]">{message}</p> : null}
+          {errorMessage ? <p className="mt-5 text-sm text-red-700">{errorMessage}</p> : null}
+          {successMessage ? <p className="mt-5 text-sm text-emerald-700">{successMessage}</p> : null}
         </CardContent>
       </Card>
     </main>

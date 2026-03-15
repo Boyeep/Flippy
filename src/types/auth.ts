@@ -34,3 +34,12 @@ export type RegisterInput = {
   password: string;
   full_name?: string;
 };
+
+export type ForgotPasswordInput = {
+  email: string;
+};
+
+export type ResetPasswordInput = {
+  token: string;
+  password: string;
+};
