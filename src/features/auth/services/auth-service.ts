@@ -5,8 +5,11 @@ import type {
   AuthUser,
   ForgotPasswordInput,
   LoginInput,
+  RegisterResponse,
   RegisterInput,
+  ResendVerificationInput,
   ResetPasswordInput,
+  VerifyEmailInput,
 } from "@/types/auth";
 
 type MeResponse = {
@@ -56,7 +59,7 @@ export async function login(input: LoginInput): Promise<AuthSession> {
   return toSession(await parseJson<AuthResponse>(response));
 }
 
-export async function register(input: RegisterInput): Promise<AuthSession> {
+export async function register(input: RegisterInput): Promise<RegisterResponse> {
   const response = await fetch(buildApiUrl("/auth/register"), {
     method: "POST",
     headers: {
@@ -65,7 +68,7 @@ export async function register(input: RegisterInput): Promise<AuthSession> {
     body: JSON.stringify(input),
   });
 
-  return toSession(await parseJson<AuthResponse>(response));
+  return parseJson<RegisterResponse>(response);
 }
 
 export async function getCurrentUser(accessToken: string): Promise<AuthUser> {
@@ -107,5 +110,35 @@ export async function resetPassword(input: ResetPasswordInput): Promise<void> {
   return parseNoContent(
     response,
     "Reset password is not available yet because the backend route is still missing."
+  );
+}
+
+export async function verifyEmail(input: VerifyEmailInput): Promise<void> {
+  const response = await fetch(buildApiUrl("/auth/verify-email"), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(input),
+  });
+
+  return parseNoContent(
+    response,
+    "Email verification is not available yet because the backend route is still missing."
+  );
+}
+
+export async function resendVerification(input: ResendVerificationInput): Promise<void> {
+  const response = await fetch(buildApiUrl("/auth/resend-verification"), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(input),
+  });
+
+  return parseNoContent(
+    response,
+    "Resend verification is not available yet because the backend route is still missing."
   );
 }

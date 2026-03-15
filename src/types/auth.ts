@@ -17,6 +17,11 @@ export type AuthResponse = {
   user: AuthUser;
 };
 
+export type RegisterResponse = {
+  message: string;
+  user: AuthUser;
+};
+
 export type AuthSession = {
   accessToken: string;
   expiresAt: string;
@@ -42,4 +47,12 @@ export type ForgotPasswordInput = {
 export type ResetPasswordInput = {
   token: string;
   password: string;
+};
+
+export type VerifyEmailInput = {
+  token: string;
+};
+
+export type ResendVerificationInput = {
+  email: string;
 };

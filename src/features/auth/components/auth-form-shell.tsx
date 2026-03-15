@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { forgotPassword, login, register } from "@/features/auth/services/auth-service";
 import { useAuthStore } from "@/features/auth/store/auth-store";
+import type { AuthSession, RegisterResponse } from "@/types/auth";
 
 type Field = {
   id: string;
@@ -81,17 +82,20 @@ export function AuthFormShell({
         full_name: String(formData.get("full_name") ?? ""),
       });
     },
-    onSuccess: async (session) => {
+    onSuccess: async (result) => {
       if (mode === "forgot-password") {
         setSuccessMessage("If your email is registered, a reset link will be sent there.");
         return;
       }
 
-      if (!session) {
+      if (mode === "signup") {
+        const email = (result as RegisterResponse).user.email;
+        router.push(`/verify-email${email ? `?email=${encodeURIComponent(email)}` : ""}`);
+        router.refresh();
         return;
       }
 
-      setSession(session);
+      setSession(result as AuthSession);
       await queryClient.invalidateQueries({ queryKey: ["auth"] });
       router.push("/");
       router.refresh();
