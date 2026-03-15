@@ -18,6 +18,11 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Flippy",
   description: "Interactive learning platform powered by flashcards and focused study flows.",
+  icons: {
+    icon: "/Images/Flippy-Logo-nobg.png",
+    shortcut: "/Images/Flippy-Logo-nobg.png",
+    apple: "/Images/Flippy-Logo-nobg.png",
+  },
 };
 
 export default function RootLayout({

@@ -1,14 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, LogOut, Menu } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuthSession } from "@/features/auth/hooks/use-auth-session";
 import { useAuthStore } from "@/features/auth/store/auth-store";
 import { useUiStore } from "@/features/shared/store/ui-store";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { canAccessDashboard } from "@/lib/dashboard-access";
 import { cn } from "@/lib/utils";
@@ -39,12 +40,19 @@ export function SiteHeader() {
       <div className="mx-auto flex w-[min(var(--max-width),calc(100%-2rem))] items-center justify-between gap-4 rounded-full border border-white/60 bg-[#fffaf2c7] px-4 py-3 shadow-[0_14px_32px_rgba(31,41,55,0.08)] backdrop-blur-[18px] max-[900px]:w-[min(var(--max-width),calc(100%-1.25rem))]">
         <Link
           href="/"
-          className="inline-flex items-center gap-3 font-[family-name:var(--font-display)] text-[1.4rem] font-bold tracking-[-0.03em]"
+          className="inline-flex items-center gap-3 font-[family-name:var(--font-display)] text-[1.35rem] font-bold tracking-[-0.03em]"
         >
-          <Badge variant="secondary" className="rounded-full px-2 py-2">
-            <BookOpen className="h-4 w-4" />
-          </Badge>
-          Flippy
+          <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-white/80 shadow-[0_8px_20px_rgba(31,41,55,0.1)]">
+            <Image
+              src="/Images/Flippy-Logo-nobg.png"
+              alt="Flippy logo"
+              width={44}
+              height={44}
+              className="h-10 w-10 object-contain"
+              priority
+            />
+          </span>
+          <span>Flippy</span>
         </Link>
         <nav className="flex items-center gap-1 max-[900px]:hidden" aria-label="Primary">
           {navItems.map((item) => (
