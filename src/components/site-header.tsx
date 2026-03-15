@@ -10,6 +10,7 @@ import { useUiStore } from "@/features/shared/store/ui-store";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { canAccessDashboard } from "@/lib/dashboard-access";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -26,6 +27,7 @@ export function SiteHeader() {
   const setMobileNavOpen = useUiStore((state) => state.setMobileNavOpen);
   const clearSession = useAuthStore((state) => state.clearSession);
   const { user, isLoading } = useAuthSession();
+  const showDashboardLink = canAccessDashboard(user);
 
   function handleLogout() {
     clearSession();
@@ -58,6 +60,18 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          {showDashboardLink ? (
+            <Link
+              href="/dashboard"
+              aria-current={pathname === "/dashboard" ? "page" : undefined}
+              className={cn(
+                "rounded-full px-4 py-3 text-[var(--muted-text)] transition-colors hover:bg-[rgba(31,111,120,0.1)] hover:text-[var(--text)]",
+                pathname === "/dashboard" && "bg-[rgba(31,111,120,0.1)] text-[var(--text)]"
+              )}
+            >
+              Dashboard
+            </Link>
+          ) : null}
         </nav>
         <div className="flex items-center gap-2 max-[900px]:hidden">
           {user ? (
@@ -103,6 +117,13 @@ export function SiteHeader() {
                     </Link>
                   </SheetClose>
                 ))}
+                {showDashboardLink ? (
+                  <SheetClose asChild>
+                    <Link href="/dashboard" className="rounded-[18px] bg-white px-4 py-4">
+                      Dashboard
+                    </Link>
+                  </SheetClose>
+                ) : null}
               </nav>
               <div className="grid gap-3 pt-2">
                 {user ? (

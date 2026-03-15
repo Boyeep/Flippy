@@ -27,6 +27,15 @@ async function parseResponse<T>(response: Response): Promise<T> {
   return payload as T;
 }
 
+async function parseNoContent(response: Response): Promise<void> {
+  if (response.ok) {
+    return;
+  }
+
+  const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+  throw new Error(payload?.error || `Request failed with status ${response.status}`);
+}
+
 export async function createFlashcardSet(accessToken: string, input: CreateFlashcardSetInput): Promise<FlashcardSet> {
   const response = await fetch(buildApiUrl("/flashcard-sets"), {
     method: "POST",
@@ -89,4 +98,26 @@ export async function getFlashcardsBySet(slug: string): Promise<Flashcard[]> {
 
   const payload = await parseResponse<FlashcardListResponse>(response);
   return payload.data;
+}
+
+export async function deleteFlashcard(accessToken: string, id: string): Promise<void> {
+  const response = await fetch(buildApiUrl(`/flashcards/${id}`), {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return parseNoContent(response);
+}
+
+export async function deleteFlashcardSet(accessToken: string, slug: string): Promise<void> {
+  const response = await fetch(buildApiUrl(`/flashcard-sets/${slug}`), {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return parseNoContent(response);
 }
