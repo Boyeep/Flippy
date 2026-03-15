@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Sans, Space_Grotesk } from "next/font/google";
 import "@/app/globals.css";
+import { PlausibleAnalytics } from "@/components/plausible-analytics";
+import { VercelAnalytics } from "@/components/vercel-analytics";
 import { RootShell } from "@/layouts/root-shell";
 
 const dmSans = DM_Sans({
@@ -27,6 +29,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${dmSans.variable} ${spaceGrotesk.variable}`}>
         <RootShell>{children}</RootShell>
+        <PlausibleAnalytics />
+        <VercelAnalytics />
       </body>
     </html>
   );
